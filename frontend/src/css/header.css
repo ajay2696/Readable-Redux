@@ -1,0 +1,64 @@
+
+.application-title {
+  padding: 5px 0;
+  background:  #3c3c3c;
+  text-align: center;
+}
+.application-title h1 {
+  font-weight: 200;
+  margin: 0;
+  color: white;
+}
+
+.application-title ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #3c3c3c;
+}
+
+.application-title li {
+    float: left;
+}
+
+.application-title li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-style:normal;
+    font-size: 16px;
+}
+
+.application-title li a:hover, .dropdown:hover .dropbtn {
+    background-color: #02b3e4;
+}
+
+.application-title li.dropdown {
+    display: inline-block;
+}
+
+.application-title .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.application-title .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.application-title .dropdown-content a:hover {background-color: #02b3e4}
+
+.application-title .dropdown:hover .dropdown-content {
+    display: block;
+}
