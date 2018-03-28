@@ -1,21 +1,40 @@
 import React,{Component} from 'react';
 import '../css/newsitem.css';
 class NewsItem extends Component {
+  state={
+      date:new Date(1467166872634)
+  }
   render(){
-    return (
-      <div>
-          <div class="card">
-          <p class="title">CEO & Founder, Example</p>
-          <p>Harvard University</p>
+      return (
           <div>
-            <a href="#"><i class="fa fa-dribbble"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-            <a href="#"><i class="fa fa-facebook"></i></a>
+              <table>
+                  <tr className="title">
+            Udacity is the best place to learn React
+                  </tr>
+                  <tr>
+                      <td className="subtext">
+              Posted On:|{this.state.date.toString()} |
+                      </td>
+                      <td className="subtext">
+              Author:Ajay |
+                      </td>
+                      <td className="subtext">
+                          <a href="comments">comments</a>
+                      </td>
+                      <td className="subtext">
+                          <a href="votes">votes</a>
+                      </td>
+                      <td className="subtext">
+                          <a href="upvote">upvote</a>
+                      </td>
+                      <td className="subtext">
+                          <a href="unvote">unvote</a>
+                      </td>
+                  </tr>
+              </table>
+              <hr/>
           </div>
-          </div>
-      </div>
-    );
+      );
   }
 }
 export default NewsItem;
