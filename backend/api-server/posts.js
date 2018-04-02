@@ -79,6 +79,7 @@ function add (token, post) {
       deleted: false,
       commentCount: 0
     }
+    console.log(posts)
 
     res(posts[post.id])
   })

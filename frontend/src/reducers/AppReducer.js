@@ -1,4 +1,4 @@
-import {UP_VOTE,UN_VOTE,FETCH_ALL_POSTS} from '../actions/Actions';
+import {UP_VOTE,UN_VOTE,FETCH_ALL_POSTS,ADD_POST} from '../actions/Actions';
 import {combineReducers} from 'redux';
 const initialState={
     posts:[
@@ -26,14 +26,14 @@ const initialState={
         }
     ]
 };
-const posts=(state=initialState.posts,action)=>{
+const posts=(posts,action)=>{
     switch(action.type){
     case FETCH_ALL_POSTS:
         return {
-            ...state
+            ...posts
         }
     case UP_VOTE:
-        return state.posts.map((post)=>{
+        return posts.map((post)=>{
             let count =post.voteScore;
             if(post.id===action.postID){
                 count++;
@@ -43,7 +43,7 @@ const posts=(state=initialState.posts,action)=>{
             });
         })
     case UN_VOTE:
-        return state.posts.map((post)=>{
+        return posts.map((post)=>{
             let count =post.voteScore;
             if(post.id===action.postID){
                 count--;
@@ -52,8 +52,10 @@ const posts=(state=initialState.posts,action)=>{
                 "voteScore":count
             });
         })
+    case ADD_POST:
+        return posts.concat(action.post);
     default:
-        return state;
+        return initialState.posts;
     }
 };
 

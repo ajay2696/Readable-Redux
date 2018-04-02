@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import '../css/newsitem.css';
 function Post(props){
     const post=props.post;
@@ -8,12 +9,12 @@ function Post(props){
             <table>
                 <tbody>
                     <tr className="title">
-                        <td>{post.title}</td>
+                        <td><Link to={`/post/${post.id}`}> {post.title}</Link></td>
                     </tr>
                     <tr className="subtext">
                         <td>
                             <div>
-                            Posted On:||{timestamp}|Author:{post.author}|
+                            Posted On:|{timestamp}|Author:{post.author}|
                             comments:{post.commentCount}|
                             Votes:{post.voteScore}|
                                 <button onClick={()=>props.upVote(post.id)}>upvote</button>

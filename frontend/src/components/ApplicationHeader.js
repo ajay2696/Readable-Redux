@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import '../css/header.css';
 import * as ReadableAPI from '../util/ReadableAPI';
+import {Link} from 'react-router-dom';
 class ApplicationHeader extends Component{
   state={
       categories:[]
@@ -17,11 +18,11 @@ class ApplicationHeader extends Component{
                   <h1>Training Discussion Forum</h1>
                   <nav>
                       <ul>
-                          <li><a>Home</a></li>
+                          <li><Link to="/">Home</Link></li>
                           {this.state.categories&&this.state.categories.map((category)=>(
-                              <li key={category.name}><a>{category.name}</a></li>
+                              <li key={category.name}><Link to={`/categories/${category.name}`}>{category.name}</Link></li>
                           ))}
-                          <li><a>New Post</a></li>
+                          <li><Link to="/addpost" >New Post</Link></li>
                       </ul>
                   </nav>
               </header>
