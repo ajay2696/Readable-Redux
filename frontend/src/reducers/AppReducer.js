@@ -59,6 +59,10 @@ const posts=(posts,action)=>{
     }
 };
 
+const comments=(comment,action)=>{
+    
+}
+
 const AppReducer=combineReducers({posts});
 
 export default AppReducer;

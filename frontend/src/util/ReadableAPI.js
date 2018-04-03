@@ -28,7 +28,6 @@ export const vote=(id,option)=>
     }).then(res=>res.json());
 
 export const addPost=(post)=>{
-  console.log(JSON.stringify(post));
     fetch(`${apiUrl}/posts`,{
         method:'POST',
         headers:{

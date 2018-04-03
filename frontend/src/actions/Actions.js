@@ -11,8 +11,7 @@ export const upVote=(postID) =>{
 export const unVote=(postID) => {
     return {
         type:UN_VOTE,
-        postID
-    }
+        postID    }
 }
 export const fetachALLPosts=() =>{
     return {
