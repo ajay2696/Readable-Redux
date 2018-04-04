@@ -8,4 +8,4 @@ const headers={
 export const fetchPostComments=(postId)=>
     fetch(`${apiUrl}/posts/${postId}/comments`,
         {headers})
-        .then(res=>res.JSON());
+        .then(res=>res.json());

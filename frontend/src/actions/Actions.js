@@ -2,6 +2,7 @@ export const UP_VOTE='UP_VOTE';
 export const UN_VOTE ='UN_VOTE';
 export const FETCH_ALL_POSTS ='FETCH_ALL_POSTS';
 export const ADD_POST='ADD_POST';
+export const DELETE_POST='DELETE_POST';
 export const upVote=(postID) =>{
     return {
         type:UP_VOTE,
@@ -11,7 +12,8 @@ export const upVote=(postID) =>{
 export const unVote=(postID) => {
     return {
         type:UN_VOTE,
-        postID    }
+        postID
+    }
 }
 export const fetachALLPosts=() =>{
     return {
@@ -23,5 +25,12 @@ export const addPost=(post)=>{
     return {
         type:ADD_POST,
         post
+    }
+}
+
+export const deletePost=(postID)=>{
+    return {
+        type:DELETE_POST,
+        postID
     }
 }

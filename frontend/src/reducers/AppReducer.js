@@ -1,4 +1,5 @@
-import {UP_VOTE,UN_VOTE,FETCH_ALL_POSTS,ADD_POST} from '../actions/Actions';
+import {UP_VOTE,UN_VOTE,FETCH_ALL_POSTS,ADD_POST,DELETE_POST} from '../actions/Actions';
+import {GET_COMMENTS,VOTE_COMMENT,EDIT_COMMENT,DELETE_COMMENT,ADD_COMMENT} from '../actions/PostDetails';
 import {combineReducers} from 'redux';
 const initialState={
     posts:[
@@ -54,15 +55,24 @@ const posts=(posts,action)=>{
         })
     case ADD_POST:
         return posts.concat(action.post);
+    case DELETE_POST:
+        return posts.filter((post)=>post.id!==action.postID)
     default:
         return initialState.posts;
     }
 };
 
-const comments=(comment,action)=>{
-    
+const comments=(comments=[],action)=>{
+    switch(action.type){
+    case GET_COMMENTS:
+        return {
+            ...action.comments
+        };
+    default:
+        return comments;
+    }
 }
 
-const AppReducer=combineReducers({posts});
+const AppReducer=combineReducers({posts,comments});
 
 export default AppReducer;
