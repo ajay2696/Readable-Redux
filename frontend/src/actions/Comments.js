@@ -25,10 +25,11 @@ export const editComment=(comment)=>{
     }
 }
 
-export const deleteComment=(commentID)=>{
+export const deleteComment=(commentID,postID)=>{
     return {
         type:DELETE_COMMENT,
-        commentID
+        commentID,
+        postID
     }
 }
 export const addComment=(comment)=>{

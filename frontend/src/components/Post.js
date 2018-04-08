@@ -17,8 +17,10 @@ function Post(props){
                             Posted On:|{timestamp}|Author:{post.author}|
                             comments:{post.commentCount}|
                             Votes:{post.voteScore}|
-                                <button onClick={()=>props.upVote(post.id)}>upvote</button>
-                                <button onClick={()=>props.unVote(post.id)}>unvote</button>
+                                <button onClick={()=>props.votePost(post.id,'upVote')}>upvote</button>
+                                <button onClick={()=>props.votePost(post.id,'downVote')}>unvote</button>
+                                <button>delete</button>
+                                <button>edit</button>
                             </div>
                         </td>
                     </tr>

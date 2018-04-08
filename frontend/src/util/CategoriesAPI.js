@@ -5,7 +5,7 @@ const headers={
     'Accept':'application/json',
     'Authorization':apiPassword
 }
-export const fetchPostComments=(postId)=>
-    fetch(`${apiUrl}/posts/${postId}/comments`,
-        {headers})
-        .then(res=>res.json());
+export const getCategories=()=>
+    fetch(`${apiUrl}/categories`,{headers})
+        .then(res=>res.json())
+        .then(data=>data.categories);

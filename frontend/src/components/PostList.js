@@ -1,23 +1,20 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {upVote,unVote} from '../actions/Actions'
+import {votePost,fetchALLPosts} from '../actions/Posts'
 import Post from './Post';
-import * as ReadbleAPI from '../util/ReadableAPI';
+import * as PostsAPI from '../util/PostsAPI';
 
 class PostList extends Component{
     state={
         sortOrder:'voteScore'
     }
-    upVoteAPI=(postID)=>{
-        ReadbleAPI.vote(postID,'upVote').then(this.props.upVote(postID));
-    }
-    unVoteAPI=(postID)=>{
-        ReadbleAPI.vote(postID,'downVote').then(this.props.unVote(postID));
-    }
     componentWillMount(){
+        PostsAPI.getAllPosts().then((posts)=>this.props.fetchALLPosts(posts))
         this.setState(Object.assign({sortOrder:'voteScore'}));
     }
-
+    votePost=(postID,option)=>{
+        PostsAPI.votePost(postID,option).then(this.props.votePost(postID,option));
+    }
     changeSortOrder(e){
         this.setState(Object.assign({sortOrder:e.target.value}));
     }
@@ -54,8 +51,7 @@ class PostList extends Component{
                     return (
                         <Post key={post.id}
                             post={post}
-                            upVote={this.upVoteAPI}
-                            unVote={this.unVoteAPI}/>)
+                            votePost={this.votePost}/>)
                 })}
             </div>);
     }
@@ -66,8 +62,8 @@ function mapStateToProps(state){
 }
 function mapDispatchToProps(dispatch){
     return {
-        upVote:(postID)=>dispatch(upVote(postID)),
-        unVote:(postID)=>dispatch(unVote(postID))
+        votePost:(postID,option)=>dispatch(votePost(postID,option)),
+        fetchALLPosts:(posts)=>dispatch(fetchALLPosts(posts))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PostList);

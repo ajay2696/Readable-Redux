@@ -1,23 +1,19 @@
-export const UP_VOTE='UP_VOTE';
-export const UN_VOTE ='UN_VOTE';
+export const VOTE_POST='VOTE_POST';
 export const FETCH_ALL_POSTS ='FETCH_ALL_POSTS';
 export const ADD_POST='ADD_POST';
 export const DELETE_POST='DELETE_POST';
-export const upVote=(postID) =>{
+export const LOAD_POST='LOAD_POST';
+export const votePost=(postID,option) =>{
     return {
-        type:UP_VOTE,
-        postID
+        type:VOTE_POST,
+        postID,
+        option
     }
 }
-export const unVote=(postID) => {
+export const fetchALLPosts=(posts) =>{
     return {
-        type:UN_VOTE,
-        postID
-    }
-}
-export const fetachALLPosts=() =>{
-    return {
-        type:FETCH_ALL_POSTS
+        type:FETCH_ALL_POSTS,
+        posts
     }
 }
 
@@ -32,5 +28,12 @@ export const deletePost=(postID)=>{
     return {
         type:DELETE_POST,
         postID
+    }
+}
+
+export const loadPost=(post)=>{
+    return {
+        type:LOAD_POST,
+        post
     }
 }

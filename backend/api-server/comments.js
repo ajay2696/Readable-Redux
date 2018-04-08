@@ -78,6 +78,7 @@ function vote (token, id, option) {
   return new Promise((res) => {
     let comments = getData(token)
     comment = comments[id]
+    console.log(option);
     switch(option) {
         case "upVote":
             comment.voteScore = comment.voteScore + 1

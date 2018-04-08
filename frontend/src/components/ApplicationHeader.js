@@ -1,15 +1,18 @@
 import React,{Component} from 'react';
 import '../css/header.css';
-import * as ReadableAPI from '../util/ReadableAPI';
+import * as CategoriesAPI from '../util/CategoriesAPI';
 import {Link} from 'react-router-dom';
+import {fetchCategories} from '../actions/Categories';
+import {connect} from 'react-redux';
+
 class ApplicationHeader extends Component{
   state={
       categories:[]
   }
   componentDidMount=()=>{
-      ReadableAPI.getCategories()
+      CategoriesAPI.getCategories()
           .then((categories)=>{
-              this.setState({categories})});
+              this.props.fetchCategories(categories)});
   }
   render(){
       return (
@@ -19,7 +22,7 @@ class ApplicationHeader extends Component{
                   <nav>
                       <ul>
                           <li><Link to="/">Home</Link></li>
-                          {this.state.categories&&this.state.categories.map((category)=>(
+                          {this.props.categories&&this.props.categories.map((category)=>(
                               <li key={category.name}><Link to={`/categories/${category.name}`}>{category.name}</Link></li>
                           ))}
                           <li><Link to="/addpost" >New Post</Link></li>
@@ -31,4 +34,15 @@ class ApplicationHeader extends Component{
   }
 }
 
-export default ApplicationHeader;
+function mapStateToProps(state){
+    return {
+        categories:state.categories
+    }
+}
+function mapDispatchToProps(dispatch){
+    return {
+        fetchCategories:(categories)=>dispatch(fetchCategories(categories))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(ApplicationHeader);

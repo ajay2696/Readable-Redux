@@ -1,9 +1,9 @@
 import React,{Component} from 'react';
 import serializeForm from 'form-serialize';
 import UUID from 'node-uuid';
-import  * as ReadbleAPI from '../util/ReadableAPI';
+import  * as PostsAPI from '../util/PostsAPI';
 import {connect} from 'react-redux';
-import {addPost} from '../actions/Actions';
+import {addPost} from '../actions/Posts';
 
 class AddNewPost extends Component{
     handleSubmit=(e)=>{
@@ -16,8 +16,7 @@ class AddNewPost extends Component{
             {timestamp},
             {voteScore: 1,deleted: false,commentCount: 0
             });
-        ReadbleAPI.addPost(post);
-        this.props.addPost(post);
+        PostsAPI.addPost(post).then((post)=>{this.props.addPost(post)});
         this.props.history.push('/');
     }
 
