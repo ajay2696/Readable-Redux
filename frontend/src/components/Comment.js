@@ -1,17 +1,101 @@
 import React,{Component} from 'react';
-
+import {Modal,ModalHeader,ModalBody,Button,Form,FormGroup,Input,Label,ModalFooter} from 'reactstrap';
 class Comment extends Component{
+    state={
+        isEditModalOpen:false,
+        isDeleteModalOpen:false,
+        comment:{}
+    }
+    componentWillMount(){
+        let comment=this.props.comment;
+        this.setState((prevState)=>({
+            ...prevState,
+            comment
+        }));
+    }
+    closeEditModal=()=>{
+        this.setState((prevState)=>({
+            ...prevState,
+            isEditModalOpen:false
+        }));
+    }
+    openEditModal=()=>{
+        this.setState((prevState)=>({
+            ...prevState,
+            isEditModalOpen:true
+        }));
+    }
+    handleChange=(e)=>{
+        let body=e.target.value;
+        this.setState((prevState)=>({
+            ...prevState,
+            comment:{
+                ...prevState.comment,
+                body
+            }
+        }));
+    }
+    handleSubmit=(e)=>{
+        e.preventDefault();
+        let timestamp=Date.now();
+        let newComment={
+            ...this.state.comment,
+            timestamp
+        }
+        this.props.editComment(newComment);
+        this.setState((prevState)=>({
+            ...prevState,
+            isEditModalOpen:false
+        }))
+    }
+    openDeleteModal=()=>{
+        this.setState((prevState)=>({
+            ...prevState,
+            isDeleteModalOpen:true
+        }));
+    }
+    closeDeleteModal=()=>{
+        this.setState((prevState)=>({
+            ...prevState,
+            isDeleteModalOpen:false
+        }))
+    }
+    deleteComment=()=>{
+        this.props.deleteComment(this.state.comment.id,this.state.comment.parentId);
+    }
     render(){
         let comment=this.props.comment;
         return <div>
-            <p>comment</p>
-            <p>{this.props.comment.body} </p> <br/>
-            votscore:{this.props.comment.voteScore}
-            <button>edit</button>
-            <button onClick={()=>this.props.deleteComment(comment.id,comment.parentId)}>delete</button>
-            <button onClick={()=>this.props.voteComment(comment.id,'upVote')}>upVote</button>
-            <button onClick={()=>this.props.voteComment(comment.id,'downVote')}>unVote</button>
+            <p>{comment.body} </p> <br/>
+            votscore:{comment.voteScore}
+            <Button onClick={this.openEditModal}>Edit</Button>{' '}
+            <Button onClick={this.openDeleteModal}>delete</Button>{' '}
+            <Button onClick={()=>this.props.voteComment(comment.id,'upVote')}>upVote</Button>{' '}
+            <Button onClick={()=>this.props.voteComment(comment.id,'downVote')}>unVote</Button>
             <hr/>
+            <Modal isOpen={this.state.isEditModalOpen}>
+                <ModalHeader toggle={this.closeEditModal}>Edit Comment</ModalHeader>
+                <ModalBody>
+                    <Form method="POST" onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                            <Label for="editComment">Comment</Label>
+                            <Input type="textarea" name="body" id="editComment"
+                                onChange={this.handleChange}
+                                value={this.state.comment.body||''}>
+                            </Input>
+                        </FormGroup>
+                        <Button color="primary">Submit</Button>
+                    </Form>
+                </ModalBody>
+            </Modal>
+            <Modal isOpen={this.state.isDeleteModalOpen}>
+                <ModalHeader>Are you Sure!! Do you want delete Comment?</ModalHeader>
+                <ModalFooter>
+                    <Button color="primary" onClick={this.deleteComment}>Delete</Button>{' '}
+                    <Button color="primary" onClick={this.closeDeleteModal}>Cancel</Button>{}
+                </ModalFooter>
+            </Modal>
+
         </div>;
     }
 }

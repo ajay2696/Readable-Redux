@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {getComments,voteComment,editComment,deleteComment,addComment} from '../actions/Comments';
-import {votePost,loadPost} from '../actions/Posts';
+import {votePost,loadPost,deletePost,editPost} from '../actions/Posts';
 import * as CommentsAPI from '../util/CommentsAPI';
 import * as PostsAPI from '../util/PostsAPI';
 import Comment from './Comment';
@@ -45,9 +45,23 @@ class PostDetailView extends Component{
         CommentsAPI.deleteComment(commentID)
             .then(this.props.deleteComment(commentID,postID));
     }
+    editComment=(comment)=>{
+        CommentsAPI.editComment(comment)
+            .then(this.props.editComment(comment));
+    }
     votePost=(postID,option)=>{
         PostsAPI.votePost(postID,option).then(this.props.votePost(postID,option));
     }
+
+    deletePost=(postID)=>{
+        PostsAPI.deletePost(postID).then((postID)=>this.props.deletePost(postID));
+    }
+    editPost=(post)=>{
+        PostsAPI.editPost(post).then((res)=>{
+            this.props.editPost(post);
+        })
+    }
+
 
     render(){
         const post =this.props.post;
@@ -63,6 +77,7 @@ class PostDetailView extends Component{
                         return <Comment key={comment.id} comment={comment}
                             deleteComment={this.deleteComment}
                             voteComment={this.voteComment}
+                            editComment={this.editComment}
                         />;
                     })}
                     <hr/>
@@ -94,7 +109,9 @@ function mapDispatchToProps(dispatch){
         deleteComment:(commentID,postID)=>dispatch(deleteComment(commentID,postID)),
         editComment:(comment)=>dispatch(editComment(comment)),
         votePost:(postID,option)=>dispatch(votePost(postID,option)),
-        loadPost:(post)=>dispatch(loadPost(post))
+        loadPost:(post)=>dispatch(loadPost(post)),
+        editPost:(post)=>dispatch(editPost(post)),
+        deletePost:(postID)=>dispatch(deletePost(postID))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PostDetailView);

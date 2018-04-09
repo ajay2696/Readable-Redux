@@ -1,4 +1,4 @@
-import {GET_COMMENTS,VOTE_COMMENT,DELETE_COMMENT,ADD_COMMENT} from '../actions/Comments';
+import {GET_COMMENTS,VOTE_COMMENT,DELETE_COMMENT,ADD_COMMENT,EDIT_COMMENT} from '../actions/Comments';
 
 export const comments= (comments=[],action)=>{
     switch(action.type){
@@ -20,6 +20,8 @@ export const comments= (comments=[],action)=>{
                 "voteScore":voteScore
             });
         });
+    case EDIT_COMMENT:
+        return comments.filter((comment)=>comment.id!==action.comment.id).concat(action.comment);
     case DELETE_COMMENT:
         return comments.map((comment)=>{
             let deleted=comment.deleted;

@@ -69,6 +69,7 @@ class Post extends Component{
       const timestamp=new Date(post.timestamp).toLocaleTimeString();
       return (
           <div>
+              
               <table>
                   <tbody>
                       <tr className="title">
