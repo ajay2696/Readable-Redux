@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {votePost,fetchALLPosts} from '../actions/Posts'
+import {votePost,fetchALLPosts,deletePost,editPost} from '../actions/Posts'
 import Post from './Post';
 import * as PostsAPI from '../util/PostsAPI';
 
@@ -18,6 +18,15 @@ class PostList extends Component{
     changeSortOrder(e){
         this.setState(Object.assign({sortOrder:e.target.value}));
     }
+    deletePost=(postID)=>{
+        PostsAPI.deletePost(postID).then((postID)=>this.props.deletePost(postID));
+    }
+    editPost=(post)=>{
+        PostsAPI.editPost(post).then((res)=>{
+            this.props.editPost(post);
+        })
+    }
+
     render(){
         let category =this.props.category;
         let posts;
@@ -51,19 +60,25 @@ class PostList extends Component{
                     return (
                         <Post key={post.id}
                             post={post}
-                            votePost={this.votePost}/>)
+                            editPost={this.editPost}
+                            votePost={this.votePost}
+                            deletePost={this.deletePost}/>)
                 })}
             </div>);
     }
 }
 
 function mapStateToProps(state){
-    return {posts:state.posts};
+    return {
+        posts:state.posts.filter((post)=>post.deleted===false)
+    };
 }
 function mapDispatchToProps(dispatch){
     return {
         votePost:(postID,option)=>dispatch(votePost(postID,option)),
-        fetchALLPosts:(posts)=>dispatch(fetchALLPosts(posts))
+        fetchALLPosts:(posts)=>dispatch(fetchALLPosts(posts)),
+        deletePost:(post)=>dispatch(deletePost(post)),
+        editPost:(post)=>dispatch(editPost(post))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PostList);

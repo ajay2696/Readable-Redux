@@ -35,4 +35,19 @@ export const loadPost=(postID)=>
         method:'GET',
         headers:{
             ...headers
-        }}).then((res)=>res.json())
+        }}).then((res)=>res.json());
+export const deletePost=(postID)=>
+    fetch(`${apiUrl}/posts/${postID}`,{
+        method:'DELETE',
+        headers:{
+            ...headers
+        }}).then(res=>res.json());
+
+export const editPost=(post)=>
+    fetch(`${apiUrl}/posts/${post.id}`,{
+        method:'PUT',
+        headers:{
+            ...headers
+        },
+        body:JSON.stringify({'body':post.body,'title':post.title})
+    }).then(res=>res.json());

@@ -1,4 +1,4 @@
-import {VOTE_POST,FETCH_ALL_POSTS,ADD_POST,DELETE_POST,LOAD_POST} from '../actions/Posts';
+import {VOTE_POST,FETCH_ALL_POSTS,ADD_POST,DELETE_POST,LOAD_POST,EDIT_POST} from '../actions/Posts';
 import {DELETE_COMMENT,ADD_COMMENT} from '../actions/Comments';
 
 export const posts= (posts=[],action)=>{
@@ -31,7 +31,11 @@ export const posts= (posts=[],action)=>{
                 deleted=true;
             }
             return Object.assign({},post,{deleted});
-        })
+        });
+    case EDIT_POST:{
+        console.log(posts.filter((post)=>post.id!==action.post.id).concat(action.post));
+        return posts.filter((post)=>post.id!==action.post.id).concat(action.post);
+    }
 
     case ADD_COMMENT:
         return posts.map((post)=>{
