@@ -4,8 +4,15 @@ import UUID from 'node-uuid';
 import  * as PostsAPI from '../util/PostsAPI';
 import {connect} from 'react-redux';
 import {addPost} from '../actions/Posts';
+import {Form,FormGroup,Input,Button,Label,Card,CardTitle,CardBody} from 'reactstrap';
 
 class AddNewPost extends Component{
+    state={
+        title:'',
+        body:'',
+        author:'',
+        category:'redux'
+    }
     handleSubmit=(e)=>{
         e.preventDefault();
         const values=serializeForm(e.target,{hash:true});
@@ -23,18 +30,28 @@ class AddNewPost extends Component{
     render(){
         return (
             <div>
-                <form className="add-new-post" onSubmit={this.handleSubmit}>
-                  Title<textarea name="title" rows="1" cols="100"> </textarea><br/>
-                  Body<textarea name="body" rows="10" cols="100"> </textarea><br/>
-                  Author<input type="text" name="author"></input><br/>
-                  Category
-                    <select name="category">
-                        <option value="redux" selected>redux</option>
-                        <option value="react">react</option>
-                    </select> <br/>
-                    <button>Submit</button>
-                </form>
-            </div>);
+                <Card>
+                    <CardTitle> Add New Post</CardTitle>
+                    <CardBody>
+                        <Form onSubmit={this.handleSubmit} method="POST">
+                            <FormGroup>
+                                <Label for="newPostTitle">Title</Label>
+                                <Input type="textarea" name="title" id="newPostTitle"></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="newPostBody">Body</Label>
+                                <Input type="textarea" name="title" id="newPostBody"></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="newPostAuthor">Author</Label>
+                                <Input type="text" name="title" id="newPostAuthor"></Input>
+                            </FormGroup>
+                            <Button>Submit</Button>
+                        </Form>
+                    </CardBody>
+                </Card>
+            </div>
+        );
     }
 }
 function mapStateToProps(state){

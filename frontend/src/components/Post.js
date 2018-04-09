@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../css/newsitem.css';
-import { Button, Modal,ModalBody,ModalHeader,ModalFooter,Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Modal,ModalBody,ModalHeader,ModalFooter,Form, FormGroup,
+    Label, Input,Card,CardText,CardBody,CardTitle,CardSubtitle } from 'reactstrap';
 
 class Post extends Component{
   state={
@@ -69,30 +70,22 @@ class Post extends Component{
       const timestamp=new Date(post.timestamp).toLocaleTimeString();
       return (
           <div>
-              
-              <table>
-                  <tbody>
-                      <tr className="title">
-                          <td><Link to={`/post/${post.id}`}> {post.title}</Link></td>
-                          <td>
-                              <Button onClick={this.openEditModal}>edit</Button>{' '}
-                              <Button onClick={this.openDeleteModal}>delete</Button>
-                          </td>
-                      </tr>
-                      <tr className="subtext">
-                          <td>
-                              <div>
-                            Posted On:|{timestamp}|Author:{post.author}|
-                            comments:{post.commentCount}|
-                            Votes:{post.voteScore}|
-                                  <Button onClick={()=>this.props.votePost(post.id,'upVote')}>upvote</Button>{' '}
-                                  <Button onClick={()=>this.props.votePost(post.id,'downVote')}>unvote</Button>
-                              </div>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-              <hr/>
+              <Card width="80%">
+                  <CardBody>
+                      <CardTitle> <Link to={`/post/${post.id}`}>{post.title}</Link></CardTitle>
+                      <CardSubtitle>
+                          <small className="text-muted">
+                          Posted On:{timestamp}|Author:{post.author}|
+                          comments:{post.commentCount}|Votes:{post.voteScore}
+                          </small>
+                      </CardSubtitle>
+                      <CardText> </CardText>
+                      <Button onClick={()=>this.props.votePost(post.id,'upVote')}>upvote</Button>{' '}
+                      <Button onClick={()=>this.props.votePost(post.id,'downVote')}>unvote</Button>{' '}
+                      <Button onClick={this.openEditModal}>edit</Button>{' '}
+                      <Button onClick={this.openDeleteModal}>delete</Button>
+                  </CardBody>
+              </Card>
               <Modal isOpen={this.state.isEditModalOpen}  >
                   <ModalHeader toggle={this.closeEditModal}>Edit Post</ModalHeader>
                   <ModalBody>

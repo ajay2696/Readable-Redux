@@ -8,6 +8,7 @@ import Comment from './Comment';
 import Post from './Post';
 import serializeForm from 'form-serialize';
 import UUID from 'node-uuid';
+import {Form,FormGroup,Input,Button,Label,Card,CardBody} from 'reactstrap';
 
 class PostDetailView extends Component{
     componentWillMount(){
@@ -70,9 +71,7 @@ class PostDetailView extends Component{
         } else {
             return (
                 <div>
-                    <h3>is Post Detail</h3>
                     <Post post={this.props.post}  votePost={this.votePost}/>
-                    <hr/>
                     {this.props.comments.map((comment)=>{
                         return <Comment key={comment.id} comment={comment}
                             deleteComment={this.deleteComment}
@@ -80,13 +79,16 @@ class PostDetailView extends Component{
                             editComment={this.editComment}
                         />;
                     })}
-                    <hr/>
                     <div>
-                        <form className="add-comment" method="POST" onSubmit={this.postComment} ref="commentform">
-                            <input type="text" name="author" placeholder="Author" />
-                            <textarea name="body" placeholder="Enter Comment"  cols="100"/>
-                            <button>post</button>
-                        </form>
+                        <Card>
+                            <CardBody>
+                                <Form className="add-comment" method="POST" onSubmit={this.postComment} ref="commentform">
+                                    <Input type="text" name="author" placeholder="Author" />{' '}
+                                    <Input type="textarea" name="body" placeholder="Enter Comment"  cols="100"/>
+                                    <Button>post</Button>
+                                </Form>
+                            </CardBody>
+                        </Card>
                     </div>
                 </div>);
         }
