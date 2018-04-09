@@ -46,6 +46,14 @@ class AddNewPost extends Component{
                                 <Label for="newPostAuthor">Author</Label>
                                 <Input type="text" name="title" id="newPostAuthor"></Input>
                             </FormGroup>
+                            <FormGroup>
+                                <Label for="newPostCategories">Categories</Label>
+                                <Input type="select" name="category" id="newPostCategories">
+                                    <option>react</option>
+                                    <option>redux</option>
+                                    <option>udacity</option>
+                                </Input>
+                            </FormGroup>
                             <Button>Submit</Button>
                         </Form>
                     </CardBody>
@@ -55,7 +63,9 @@ class AddNewPost extends Component{
     }
 }
 function mapStateToProps(state){
-    return {posts:state}
+    return {
+        categories:state.categories
+    }
 }
 function mapDispatchToProps(dispatch){
     return {

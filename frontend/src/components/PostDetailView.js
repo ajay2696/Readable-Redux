@@ -13,10 +13,8 @@ import {Form,FormGroup,Input,Button,Label,Card,CardBody} from 'reactstrap';
 class PostDetailView extends Component{
     componentWillMount(){
         let postID=this.props.match.params.uid;
-
         PostsAPI.loadPost(postID)
             .then((post)=>this.props.loadPost(post));
-
         CommentsAPI.fetchPostComments(postID)
             .then((comments)=>{
                 let commentsArray=Object.values(comments);
