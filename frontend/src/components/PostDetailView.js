@@ -2,24 +2,17 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {getComments,voteComment,editComment,deleteComment,addComment} from '../actions/Comments';
 import {votePost,loadPost,deletePost,editPost} from '../actions/Posts';
-import * as CommentsAPI from '../util/CommentsAPI';
-import * as PostsAPI from '../util/PostsAPI';
 import Comment from './Comment';
 import Post from './Post';
 import serializeForm from 'form-serialize';
 import UUID from 'node-uuid';
-import {Form,FormGroup,Input,Button,Label,Card,CardBody} from 'reactstrap';
+import {Form,Input,Button,Card,CardBody} from 'reactstrap';
 
 class PostDetailView extends Component{
     componentWillMount(){
         let postID=this.props.match.params.uid;
-        PostsAPI.loadPost(postID)
-            .then((post)=>this.props.loadPost(post));
-        CommentsAPI.fetchPostComments(postID)
-            .then((comments)=>{
-                let commentsArray=Object.values(comments);
-                this.props.getComments(commentsArray);
-            });
+        this.props.loadPost(postID);
+        this.props.getComments(postID);
     }
     postComment=(e)=>{
         e.preventDefault();
@@ -32,35 +25,9 @@ class PostDetailView extends Component{
             {deleted:false},
             {parentDeleted:false},{parentId}
         );
-        CommentsAPI.postComment(comment)
-            .then((result)=>this.props.addComment(result));
+        this.props.addComment(comment);
         e.target.reset();
     }
-    voteComment=(commentID,option)=>{
-        CommentsAPI.voteComment(commentID,option)
-            .then(this.props.voteComment(commentID,option));
-    }
-    deleteComment=(commentID,postID)=>{
-        CommentsAPI.deleteComment(commentID)
-            .then(this.props.deleteComment(commentID,postID));
-    }
-    editComment=(comment)=>{
-        CommentsAPI.editComment(comment)
-            .then(this.props.editComment(comment));
-    }
-    votePost=(postID,option)=>{
-        PostsAPI.votePost(postID,option).then(this.props.votePost(postID,option));
-    }
-
-    deletePost=(postID)=>{
-        PostsAPI.deletePost(postID).then((postID)=>this.props.deletePost(postID));
-    }
-    editPost=(post)=>{
-        PostsAPI.editPost(post).then((res)=>{
-            this.props.editPost(post);
-        })
-    }
-
 
     render(){
         const post =this.props.post;
@@ -69,12 +36,16 @@ class PostDetailView extends Component{
         } else {
             return (
                 <div>
-                    <Post post={this.props.post}  votePost={this.votePost}/>
+                    <Post post={this.props.post}
+                        votePost={this.props.votePost}
+                        editPost={this.props.editPost}
+                        deletePost={this.props.deletePost}
+                    />
                     {this.props.comments.map((comment)=>{
                         return <Comment key={comment.id} comment={comment}
-                            deleteComment={this.deleteComment}
-                            voteComment={this.voteComment}
-                            editComment={this.editComment}
+                            deleteComment={this.props.deleteComment}
+                            voteComment={this.props.voteComment}
+                            editComment={this.props.editComment}
                         />;
                     })}
                     <div>

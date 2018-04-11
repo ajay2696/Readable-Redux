@@ -9,24 +9,12 @@ class PostList extends Component{
         sortOrder:'voteScore'
     }
     componentWillMount(){
-        PostsAPI.getAllPosts().then((posts)=>this.props.fetchALLPosts(posts))
+        this.props.fetchALLPosts();
         this.setState(Object.assign({sortOrder:'voteScore'}));
-    }
-    votePost=(postID,option)=>{
-        PostsAPI.votePost(postID,option).then(this.props.votePost(postID,option));
     }
     changeSortOrder(e){
         this.setState(Object.assign({sortOrder:e.target.value}));
     }
-    deletePost=(postID)=>{
-        PostsAPI.deletePost(postID).then((postID)=>this.props.deletePost(postID));
-    }
-    editPost=(post)=>{
-        PostsAPI.editPost(post).then((res)=>{
-            this.props.editPost(post);
-        })
-    }
-
     render(){
         let category =this.props.category;
         let posts;
@@ -60,9 +48,9 @@ class PostList extends Component{
                     return (
                         <Post key={post.id}
                             post={post}
-                            editPost={this.editPost}
-                            votePost={this.votePost}
-                            deletePost={this.deletePost}/>)
+                            editPost={this.props.editPost}
+                            votePost={this.props.votePost}
+                            deletePost={this.props.deletePost}/>)
                 })}
             </div>);
     }
@@ -76,7 +64,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
     return {
         votePost:(postID,option)=>dispatch(votePost(postID,option)),
-        fetchALLPosts:(posts)=>dispatch(fetchALLPosts(posts)),
+        fetchALLPosts:()=>dispatch(fetchALLPosts()),
         deletePost:(post)=>dispatch(deletePost(post)),
         editPost:(post)=>dispatch(editPost(post))
     }

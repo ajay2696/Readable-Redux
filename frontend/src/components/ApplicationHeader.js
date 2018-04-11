@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import '../css/header.css';
-import * as CategoriesAPI from '../util/CategoriesAPI';
 import {Link} from 'react-router-dom';
 import {fetchCategories} from '../actions/Categories';
 import {connect} from 'react-redux';
@@ -10,9 +9,7 @@ class ApplicationHeader extends Component{
       categories:[]
   }
   componentDidMount=()=>{
-      CategoriesAPI.getCategories()
-          .then((categories)=>{
-              this.props.fetchCategories(categories)});
+      this.props.fetchCategories();
   }
   render(){
       return (
@@ -41,7 +38,7 @@ function mapStateToProps(state){
 }
 function mapDispatchToProps(dispatch){
     return {
-        fetchCategories:(categories)=>dispatch(fetchCategories(categories))
+        fetchCategories:()=>dispatch(fetchCategories())
     }
 }
 

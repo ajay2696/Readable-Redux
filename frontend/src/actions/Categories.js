@@ -1,7 +1,12 @@
-export const FETCH_CATEGORIES='FETCH_CATEGORIES';
-export const fetchCategories=(categories)=>{
+import * as CategoriesAP from '../util/CategoriesAPI';
+
+export const RECIEVED_CATEGORIES='FETCH_CATEGORIES';
+const recievedCategories=(categories)=>{
     return {
-        type:FETCH_CATEGORIES,
+        type:RECIEVED_CATEGORIES,
         categories
     }
+}
+export const fetchCategories=()=>(dispatch)=>{
+    CategoriesAP.getCategories().then((categories)=>dispatch(recievedCategories(categories)));
 }

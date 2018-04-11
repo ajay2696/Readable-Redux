@@ -1,9 +1,9 @@
-import {VOTE_POST,FETCH_ALL_POSTS,ADD_POST,DELETE_POST,LOAD_POST,EDIT_POST} from '../actions/Posts';
+import {VOTE_POST,RECIEVED_ALL_POSTS,ADD_POST,DELETE_POST,LOAD_POST,EDIT_POST} from '../actions/Posts';
 import {DELETE_COMMENT,ADD_COMMENT} from '../actions/Comments';
 
 export const posts= (posts=[],action)=>{
     switch(action.type){
-    case FETCH_ALL_POSTS:
+    case RECIEVED_ALL_POSTS:
         return  action.posts.slice(0);
     case LOAD_POST:
         return posts.filter((post)=>post.id!==action.post.id).concat(action.post);
