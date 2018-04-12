@@ -223,6 +223,9 @@ app.post('/posts/:id', bodyParser.json(), (req, res) => {
 })
 
 app.put('/posts/:id', bodyParser.json(), (req, res) => {
+    console.log(req.body);
+    console.log(req.params.id);
+
     posts.edit(req.token, req.params.id, req.body)
       .then(
         (data) => res.send(data),

@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {votePost,fetchALLPosts,deletePost,editPost} from '../actions/Posts'
 import Post from './Post';
-import * as PostsAPI from '../util/PostsAPI';
 
 class PostList extends Component{
     state={
@@ -65,7 +64,7 @@ function mapDispatchToProps(dispatch){
     return {
         votePost:(postID,option)=>dispatch(votePost(postID,option)),
         fetchALLPosts:()=>dispatch(fetchALLPosts()),
-        deletePost:(post)=>dispatch(deletePost(post)),
+        deletePost:(postId)=>dispatch(deletePost(postId)),
         editPost:(post)=>dispatch(editPost(post))
     }
 }

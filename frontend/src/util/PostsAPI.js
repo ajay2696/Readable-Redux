@@ -14,8 +14,7 @@ export const votePost=(id,option)=>
     fetch(`${apiUrl}/posts/${id}`,{
         method: 'POST',
         headers:{
-            'Accept':'application/json',
-            'Authorization':apiPassword,
+            ...headers,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({'option':option})
@@ -47,7 +46,8 @@ export const editPost=(post)=>
     fetch(`${apiUrl}/posts/${post.id}`,{
         method:'PUT',
         headers:{
-            ...headers
+            ...headers,
+            'Content-Type': 'application/json'
         },
         body:JSON.stringify({'body':post.body,'title':post.title})
     }).then(res=>res.json());

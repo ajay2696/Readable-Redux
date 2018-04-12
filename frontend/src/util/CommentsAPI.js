@@ -21,8 +21,7 @@ export const voteComment=(commentID,option)=>
     fetch(`${apiUrl}/comments/${commentID}`,{
         method:'POST',
         headers:{
-            'Accept':'application/json',
-            'Authorization':apiPassword,
+            ...headers,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({'option':option})
@@ -40,7 +39,8 @@ export const editComment=(comment)=>
     fetch(`${apiUrl}/comments/${comment.id}`,{
         method:'PUT',
         headers:{
-            ...headers
+            ...headers,
+            'Content-Type': 'application/json'
         },
         body:JSON.stringify({'body':comment.body,'timestamp':comment.timestamp})
     }).then(res=>res.json());

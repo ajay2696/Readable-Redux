@@ -64,6 +64,9 @@ export const loadPost=(postID)=>dispatch=>{
         .then((post)=>dispatch(loadPostAction(post)));
 }
 export const editPost=(post)=>dispatch=>{
-    PostsAPI.loadPost(post)
-        .then((post)=>dispatch(editPostAction(post)));
+    PostsAPI.editPost(post)
+        .then((res)=>{
+              console.log(res);
+              console.log(JSON.stringify({'body':post.body,'title':post.title}));
+          dispatch(editPostAction(post))});
 }

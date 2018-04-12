@@ -34,7 +34,9 @@ class Post extends Component{
       let post={...this.state.post,
           timestamp
       };
+      console.log(post);
       this.props.editPost(post);
+
       this.setState((prevState) =>
           Object.assign(prevState,{isEditModalOpen:false}));
   }

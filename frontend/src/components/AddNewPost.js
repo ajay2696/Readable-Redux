@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import serializeForm from 'form-serialize';
 import UUID from 'node-uuid';
-import  * as PostsAPI from '../util/PostsAPI';
 import {connect} from 'react-redux';
 import {addPost} from '../actions/Posts';
 import {Form,FormGroup,Input,Button,Label,Card,CardTitle,CardBody} from 'reactstrap';
@@ -23,7 +22,7 @@ class AddNewPost extends Component{
             {timestamp},
             {voteScore: 1,deleted: false,commentCount: 0
             });
-        PostsAPI.addPost(post).then((post)=>{this.props.addPost(post)});
+        this.props.addPost(post);
         this.props.history.push('/');
     }
 
@@ -40,11 +39,11 @@ class AddNewPost extends Component{
                             </FormGroup>
                             <FormGroup>
                                 <Label for="newPostBody">Body</Label>
-                                <Input type="textarea" name="title" id="newPostBody"></Input>
+                                <Input type="textarea" name="body" id="newPostBody"></Input>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="newPostAuthor">Author</Label>
-                                <Input type="text" name="title" id="newPostAuthor"></Input>
+                                <Input type="text" name="author" id="newPostAuthor"></Input>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="newPostCategories">Categories</Label>
