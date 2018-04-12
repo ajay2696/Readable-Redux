@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import '../css/newsitem.css';
 import { Button, Modal,ModalBody,ModalHeader,ModalFooter,Form, FormGroup,
     Label, Input,Card,CardText,CardBody,CardTitle,CardSubtitle } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 class Post extends Component{
   state={
@@ -34,7 +35,6 @@ class Post extends Component{
       let post={...this.state.post,
           timestamp
       };
-      console.log(post);
       this.props.editPost(post);
 
       this.setState((prevState) =>
@@ -120,4 +120,10 @@ class Post extends Component{
   }
 }
 
+Post.propTypes={
+    post:PropTypes.object,
+    deletePost:PropTypes.func.isRequired,
+    votePost:PropTypes.func.isRequired,
+    editPost:PropTypes.func.isRequired
+}
 export default Post;

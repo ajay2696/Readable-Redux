@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {Modal,ModalHeader,ModalBody,Button,Form,FormGroup,Input,Label,ModalFooter} from 'reactstrap';
+import PropTypes from 'prop-types';
 class Comment extends Component{
     state={
         isEditModalOpen:false,
@@ -98,6 +99,12 @@ class Comment extends Component{
 
         </div>;
     }
+}
+Comment.propTypes={
+    comment:PropTypes.object,
+    voteComment:PropTypes.func.isRequired,
+    editComment:PropTypes.func.isRequired,
+    deleteComment:PropTypes.func.isRequired
 }
 
 export default Comment;

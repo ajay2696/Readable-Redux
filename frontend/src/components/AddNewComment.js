@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import UUID from 'node-uuid';
 import {Form,Input,Button,Card,CardBody} from 'reactstrap';
+import PropTypes from 'prop-types';
 
 class AddNewComment extends Component{
   state={
@@ -52,4 +53,8 @@ class AddNewComment extends Component{
 
 }
 
+AddNewComment.propTypes={
+    post:PropTypes.object,
+    addComment:PropTypes.func.isRequired
+}
 export default AddNewComment;

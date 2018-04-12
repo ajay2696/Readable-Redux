@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {votePost,fetchALLPosts,deletePost,editPost} from '../actions/Posts'
 import Post from './Post';
-
+import PropTypes from 'prop-types';
 class PostList extends Component{
     state={
         sortOrder:'voteScore'
@@ -67,5 +67,13 @@ function mapDispatchToProps(dispatch){
         deletePost:(postId)=>dispatch(deletePost(postId)),
         editPost:(post)=>dispatch(editPost(post))
     }
+}
+PostList.propTypes={
+    posts:PropTypes.array,
+    category:PropTypes.string,
+    votePost:PropTypes.func.isRequired,
+    fetchALLPosts:PropTypes.func.isRequired,
+    deletePost:PropTypes.func.isRequired,
+    editPost:PropTypes.func.isRequired
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PostList);

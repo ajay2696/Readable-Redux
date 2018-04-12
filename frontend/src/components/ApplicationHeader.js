@@ -3,7 +3,7 @@ import '../css/header.css';
 import {Link} from 'react-router-dom';
 import {fetchCategories} from '../actions/Categories';
 import {connect} from 'react-redux';
-
+import PropTypes from 'prop-types';
 class ApplicationHeader extends Component{
   state={
       categories:[]
@@ -41,5 +41,8 @@ function mapDispatchToProps(dispatch){
         fetchCategories:()=>dispatch(fetchCategories())
     }
 }
-
+ApplicationHeader.propTypes={
+    categories:PropTypes.array,
+    fetchCategories:PropTypes.func.isRequired
+}
 export default connect(mapStateToProps,mapDispatchToProps)(ApplicationHeader);

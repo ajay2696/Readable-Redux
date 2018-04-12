@@ -5,6 +5,8 @@ import {votePost,loadPost,deletePost,editPost} from '../actions/Posts';
 import Comment from './Comment';
 import Post from './Post';
 import AddNewComment from './AddNewComment';
+import PropTypes from 'prop-types';
+
 class PostDetailView extends Component{
     componentWillMount(){
         let postID=this.props.match.params.uid;
@@ -58,5 +60,19 @@ function mapDispatchToProps(dispatch){
         editPost:(post)=>dispatch(editPost(post)),
         deletePost:(postID)=>dispatch(deletePost(postID))
     }
+}
+PostDetailView.propTypes={
+    getComments:PropTypes.func.isRequired,
+    addComment:PropTypes.func.isRequired,
+    voteComment:PropTypes.func.isRequired,
+    deleteComment:PropTypes.func.isRequired,
+    editComment:PropTypes.func.isRequired,
+    votePost:PropTypes.func.isRequired,
+    loadPost:PropTypes.func.isRequired,
+    editPost:PropTypes.func.isRequired,
+    deletePost:PropTypes.func.isRequired,
+    post:PropTypes.object,
+    comments:PropTypes.array,
+    match:PropTypes.object
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PostDetailView);

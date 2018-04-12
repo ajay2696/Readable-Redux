@@ -4,6 +4,7 @@ import UUID from 'node-uuid';
 import {connect} from 'react-redux';
 import {addPost} from '../actions/Posts';
 import {Form,FormGroup,Input,Button,Label,Card,CardTitle,CardBody} from 'reactstrap';
+import PropTypes from 'prop-types';
 
 class AddNewPost extends Component{
     state={
@@ -85,5 +86,10 @@ function mapDispatchToProps(dispatch){
     return {
         addPost:(post)=>dispatch(addPost(post))
     }
+}
+AddNewPost.propTypes={
+    categories:PropTypes.array,
+    addPost:PropTypes.func.isRequired,
+    history:PropTypes.object
 }
 export default connect(mapStateToProps,mapDispatchToProps)(AddNewPost);
