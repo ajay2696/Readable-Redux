@@ -20,10 +20,8 @@ class PostDetailView extends Component{
         let commentID =UUID.v4();
         let timestamp= Date.now();
         let parentId=this.props.post.id;
-        const comment=Object.assign(values,{id:commentID},
-            {timestamp},
-            {deleted:false},
-            {parentDeleted:false},{parentId}
+        const comment=Object.assign(values,
+            {timestamp,parentId,id:commentID,deleted:false,voteScore:0,parentDeleted:false}
         );
         this.props.addComment(comment);
         e.target.reset();
