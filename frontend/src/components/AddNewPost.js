@@ -10,7 +10,7 @@ class AddNewPost extends Component{
         title:'',
         body:'',
         author:'',
-        category:'redux'
+        category:''
     }
     handleSubmit=(e)=>{
         e.preventDefault();
@@ -26,6 +26,15 @@ class AddNewPost extends Component{
         this.props.history.push('/');
     }
 
+    handleChange=(e)=>{
+        let name=e.target.name;
+        let value=e.target.value;
+        this.setState((prevState)=>({
+            ...prevState,
+            [name]:value
+        }));
+    }
+
     render(){
         return (
             <div>
@@ -35,22 +44,28 @@ class AddNewPost extends Component{
                         <Form onSubmit={this.handleSubmit} method="POST">
                             <FormGroup>
                                 <Label for="newPostTitle">Title</Label>
-                                <Input type="textarea" name="title" id="newPostTitle"></Input>
+                                <Input type="textarea" name="title" id="newPostTitle"
+                                    value={this.state.title||''} onChange={this.handleChange}></Input>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="newPostBody">Body</Label>
-                                <Input type="textarea" name="body" id="newPostBody"></Input>
+                                <Input type="textarea" name="body" id="newPostBody"
+                                    value={this.state.body||''} onChange={this.handleChange}></Input>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="newPostAuthor">Author</Label>
-                                <Input type="text" name="author" id="newPostAuthor"></Input>
+                                <Input type="text" name="author" id="newPostAuthor"
+                                    value={this.state.author||''} onChange={this.handleChange}></Input>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="newPostCategories">Categories</Label>
-                                <Input type="select" name="category" id="newPostCategories">
-                                    <option>react</option>
-                                    <option>redux</option>
-                                    <option>udacity</option>
+                                <Input type="select" name="category" id="newPostCategories"
+                                    value={this.state.category||''} onChange={this.handleChange}>
+                                    {
+                                        this.props.categories.map((category)=>(
+                                            <option key={category.name}>{category.name}</option>
+                                        ))
+                                    }
                                 </Input>
                             </FormGroup>
                             <Button>Submit</Button>

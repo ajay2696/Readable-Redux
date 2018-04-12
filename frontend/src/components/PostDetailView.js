@@ -4,27 +4,12 @@ import {getComments,voteComment,editComment,deleteComment,addComment} from '../a
 import {votePost,loadPost,deletePost,editPost} from '../actions/Posts';
 import Comment from './Comment';
 import Post from './Post';
-import serializeForm from 'form-serialize';
-import UUID from 'node-uuid';
-import {Form,Input,Button,Card,CardBody} from 'reactstrap';
-
+import AddNewComment from './AddNewComment';
 class PostDetailView extends Component{
     componentWillMount(){
         let postID=this.props.match.params.uid;
         this.props.loadPost(postID);
         this.props.getComments(postID);
-    }
-    postComment=(e)=>{
-        e.preventDefault();
-        const values=serializeForm(e.target,{hash:true});
-        let commentID =UUID.v4();
-        let timestamp= Date.now();
-        let parentId=this.props.post.id;
-        const comment=Object.assign(values,
-            {timestamp,parentId,id:commentID,deleted:false,voteScore:0,parentDeleted:false}
-        );
-        this.props.addComment(comment);
-        e.target.reset();
     }
 
     render(){
@@ -46,17 +31,8 @@ class PostDetailView extends Component{
                             editComment={this.props.editComment}
                         />;
                     })}
-                    <div>
-                        <Card>
-                            <CardBody>
-                                <Form className="add-comment" method="POST" onSubmit={this.postComment} ref="commentform">
-                                    <Input type="text" name="author" placeholder="Author" />{' '}
-                                    <Input type="textarea" name="body" placeholder="Enter Comment"  cols="100"/>
-                                    <Button>post</Button>
-                                </Form>
-                            </CardBody>
-                        </Card>
-                    </div>
+                    <AddNewComment post={this.props.post}
+                        addComment={this.props.addComment}/>
                 </div>);
         }
     }

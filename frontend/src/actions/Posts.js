@@ -57,7 +57,7 @@ export const addPost=(post)=>dispatch=>{
 
 export const deletePost=(postID)=>dispatch=>{
     PostsAPI.deletePost(postID)
-        .then((postID)=>dispatch(deletePostAction(postID)));
+        .then((res)=>dispatch(deletePostAction(postID)));
 }
 export const loadPost=(postID)=>dispatch=>{
     PostsAPI.loadPost(postID)
@@ -66,7 +66,5 @@ export const loadPost=(postID)=>dispatch=>{
 export const editPost=(post)=>dispatch=>{
     PostsAPI.editPost(post)
         .then((res)=>{
-              console.log(res);
-              console.log(JSON.stringify({'body':post.body,'title':post.title}));
-          dispatch(editPostAction(post))});
+            dispatch(editPostAction(post))});
 }

@@ -25,16 +25,9 @@ export const posts= (posts=[],action)=>{
     case ADD_POST:
         return posts.concat(action.post);
     case DELETE_POST:
-        return posts.map((post)=>{
-            let deleted =post.deleted;
-            if(post.id===action.postID){
-                deleted=true;
-            }
-            return Object.assign({},post,{deleted});
-        });
-    case EDIT_POST:{
+        return posts.filter((post)=>post.id!==action.postID);
+    case EDIT_POST:
         return posts.filter((post)=>post.id!==action.post.id).concat(action.post);
-    }
     case ADD_COMMENT:
         return posts.map((post)=>{
             let count =post.commentCount;
