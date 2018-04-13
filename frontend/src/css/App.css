@@ -28,7 +28,9 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-
+.AppBody{
+  text-align: left
+}
 
 .edit {
     background:url('../icons/edit.svg') no-repeat;

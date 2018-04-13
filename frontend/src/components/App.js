@@ -11,19 +11,17 @@ class App extends Component {
             <div className="App">
                 <ApplicationHeader/>
                 <br/>
-                <body>
-                    <div style={{"font-size":"14px"}}>
-                        <Route exact path="/" render={()=>(
-                            <PostList category=""/>
-                        )}/>
-                        <Route exact path="/categories/:categoryName" render={({match})=>{
-                            return (
-                                <PostList category={match.params.categoryName}/>
-                            )}}/>
-                        <Route exact path="/post/:uid" component={PostDetailView}/>
-                        <Route exact path="/addpost" component={AddNewPost} />
-                    </div>
-                </body>
+                <div className="AppBody">
+                    <Route exact path="/" render={()=>(
+                        <PostList category=""/>
+                    )}/>
+                    <Route exact path="/categories/:categoryName" render={({match})=>{
+                        return (
+                            <PostList category={match.params.categoryName}/>
+                        )}}/>
+                    <Route exact path="/post/:uid" component={PostDetailView}/>
+                    <Route exact path="/addpost" component={AddNewPost} />
+                </div>
             </div>
         );
     }
