@@ -26,15 +26,17 @@ class PostDetailView extends Component{
                         editPost={this.props.editPost}
                         deletePost={this.props.deletePost}
                     />
-                    {this.props.comments.map((comment)=>{
-                        return <Comment key={comment.id} comment={comment}
-                            deleteComment={this.props.deleteComment}
-                            voteComment={this.props.voteComment}
-                            editComment={this.props.editComment}
-                        />;
-                    })}
-                    <AddNewComment post={this.props.post}
-                        addComment={this.props.addComment}/>
+                    <div className="div-comments">
+                        {this.props.comments.map((comment)=>{
+                            return <Comment key={comment.id} comment={comment}
+                                deleteComment={this.props.deleteComment}
+                                voteComment={this.props.voteComment}
+                                editComment={this.props.editComment}
+                            />;
+                        })}
+                        <AddNewComment post={this.props.post}
+                            addComment={this.props.addComment}/>
+                    </div>
                 </div>);
         }
     }

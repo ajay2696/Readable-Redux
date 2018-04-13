@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {votePost,fetchALLPosts,deletePost,editPost} from '../actions/Posts'
 import Post from './Post';
 import PropTypes from 'prop-types';
+
 class PostList extends Component{
     state={
         sortOrder:'voteScore'
@@ -38,8 +39,8 @@ class PostList extends Component{
             <div>
                 <div align="center">Sort By:
                     <select onChange={(e)=>{this.changeSortOrder(e)}}>
-                        <option value="voteScore">Vote Score</option>
-                        <option value="comments">No Of Comments</option>
+                        <option value="voteScore">Vote Score(low to high)</option>
+                        <option value="comments">No Of Comments(low to high)</option>
                     </select>
                 </div>
                 <hr/>

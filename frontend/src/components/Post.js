@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
-import '../css/newsitem.css';
+import  '../css/App.css';
 import { Button, Modal,ModalBody,ModalHeader,ModalFooter,Form, FormGroup,
     Label, Input,Card,CardText,CardBody,CardTitle,CardSubtitle } from 'reactstrap';
 import PropTypes from 'prop-types';
@@ -69,23 +69,26 @@ class Post extends Component{
   }
   render(){
       const post=this.props.post;
-      const timestamp=new Date(post.timestamp).toLocaleTimeString();
+      const timestamp=new Date(post.timestamp).toLocaleString();
       return (
-          <div>
-              <Card width="80%">
+          <div className="div-post">
+              <Card>
                   <CardBody>
-                      <CardTitle> <Link to={`/post/${post.id}`}>{post.title}</Link></CardTitle>
+                      <CardTitle>
+                          <Link to={`/post/${post.id}`}>{post.title}</Link>{' '}
+                          <button onClick={this.openEditModal} className="edit"></button>{' '}
+                          <button onClick={this.openDeleteModal} className="delete"></button>
+                      </CardTitle>
                       <CardSubtitle>
                           <small className="text-muted">
-                          Posted On:{timestamp}|Author:{post.author}|
-                          comments:{post.commentCount}|Votes:{post.voteScore}
+                          Author:{post.author}{' '}| Posted On:{timestamp}|{' '}
+                          comments:{post.commentCount}
                           </small>
                       </CardSubtitle>
-                      <CardText> </CardText>
-                      <Button onClick={()=>this.props.votePost(post.id,'upVote')}>upvote</Button>{' '}
-                      <Button onClick={()=>this.props.votePost(post.id,'downVote')}>unvote</Button>{' '}
-                      <Button onClick={this.openEditModal}>edit</Button>{' '}
-                      <Button onClick={this.openDeleteModal}>delete</Button>
+                      <CardText>{post.body}</CardText>
+                      <button onClick={()=>this.props.votePost(post.id,'upVote')} className="upvote"></button>{' '}{post.voteScore}{' '}
+                      <button onClick={()=>this.props.votePost(post.id,'downVote')} className="downvote"></button>{' '}
+
                   </CardBody>
               </Card>
               <Modal isOpen={this.state.isEditModalOpen}  >
@@ -110,7 +113,7 @@ class Post extends Component{
               <Modal isOpen={this.state.isDeleteModalOpen}>
                   <ModalHeader>Are you Sure!! Do you want delete Post?</ModalHeader>
                   <ModalFooter>
-                      <Button color="primary" onClick={this.deletePost}>Delete</Button>{' '}
+                      <Button color="primary" onClick={this.deletePost}> Delete</Button>{' '}
                       <Button color="primary" onClick={this.closeDeleteModal}>Cancel</Button>{}
                   </ModalFooter>
               </Modal>

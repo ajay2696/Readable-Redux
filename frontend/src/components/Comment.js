@@ -67,19 +67,20 @@ class Comment extends Component{
     render(){
         let comment=this.props.comment;
         return <div>
-            <p>{comment.body} </p> <br/>
-            votscore:{comment.voteScore}
-            <Button onClick={this.openEditModal}>Edit</Button>{' '}
-            <Button onClick={this.openDeleteModal}>delete</Button>{' '}
-            <Button onClick={()=>this.props.voteComment(comment.id,'upVote')}>upVote</Button>{' '}
-            <Button onClick={()=>this.props.voteComment(comment.id,'downVote')}>unVote</Button>
+            <div>{comment.body}{' '}
+                <button onClick={this.openEditModal} className="edit-comment"></button>{' '}
+                <button onClick={this.openDeleteModal} className="delete-comment"></button>{' '}
+            </div>
+            <button onClick={()=>this.props.voteComment(comment.id,'upVote')} className="upvote-comment"></button>
+            {' '}{comment.voteScore}{' '}
+            <button onClick={()=>this.props.voteComment(comment.id,'downVote')} className="downvote-comment"></button>
             <hr/>
             <Modal isOpen={this.state.isEditModalOpen}>
                 <ModalHeader toggle={this.closeEditModal}>Edit Comment</ModalHeader>
                 <ModalBody>
                     <Form method="POST" onSubmit={this.handleSubmit}>
                         <FormGroup>
-                            <Label for="editComment">Comment</Label>
+                            <Label for="editComment"></Label>
                             <Input type="textarea" name="body" id="editComment"
                                 onChange={this.handleChange}
                                 value={this.state.comment.body||''}>

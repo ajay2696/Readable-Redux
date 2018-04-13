@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  padding-left: 100px;
+  padding-right:100px;
 }
 
 .App-logo {
@@ -25,4 +27,94 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+
+.edit {
+    background:url('../icons/edit.svg') no-repeat;
+    cursor:pointer;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-size: 20px;
+
+}
+
+
+.delete {
+    background:url('../icons/delete.svg') no-repeat;
+    cursor:pointer;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-size: 20px;
+
+}
+.upvote {
+  background:url('../icons/upvote.svg') no-repeat;
+  cursor:pointer;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-size: 20px;
+}
+
+.downvote {
+  background:url('../icons/downvote.svg') no-repeat;
+  cursor:pointer;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-size: 20px;
+}
+
+.div-post {
+    width: 80%;
+    padding-bottom:1px;
+}
+
+.div-comments {
+    width: 70%;
+    padding-bottom:1px;
+    padding-left: 30px;
+    margin-left:30px
+}
+
+
+.edit-comment {
+    background:url('../icons/edit.svg') no-repeat;
+    cursor:pointer;
+    width: 14px;
+    height: 14px;
+    border: none;
+    background-size: 14px;
+
+}
+
+
+.delete-comment {
+    background:url('../icons/delete.svg') no-repeat;
+    cursor:pointer;
+    width: 14px;
+    height: 14px;
+    border: none;
+    background-size: 14px;
+
+}
+.upvote-comment {
+  background:url('../icons/upvote.svg') no-repeat;
+  cursor:pointer;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-size: 20px;
+}
+
+.downvote-comment {
+  background:url('../icons/downvote.svg') no-repeat;
+  cursor:pointer;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-size: 20px;
 }
