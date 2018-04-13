@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import serializeForm from 'form-serialize';
 import UUID from 'node-uuid';
 import {connect} from 'react-redux';
 import {addPost} from '../actions/Posts';
@@ -11,20 +10,33 @@ class AddNewPost extends Component{
         title:'',
         body:'',
         author:'',
-        category:''
+        category:'react'
     }
     handleSubmit=(e)=>{
         e.preventDefault();
-        const values=serializeForm(e.target,{hash:true});
-        let postId=UUID.v4();
-        let timestamp=Date.now();
-        const post=Object.assign(values,
-            {id:postId},
-            {timestamp},
-            {voteScore: 1,deleted: false,commentCount: 0
-            });
-        this.props.addPost(post);
-        this.props.history.push('/');
+        let errorColumns=Object.keys(this.state).filter((key)=>this.state[key]==='');
+        if(errorColumns.length>0){
+            this.setState((prevState)=>({
+                ...prevState,
+                error:'Please Enter Values for columns:'+errorColumns.toString()
+            }));
+        } else {
+            const post={
+                title:this.state.title,
+                body:this.state.body,
+                author:this.state.author,
+                category:this.state.category,
+                id:UUID.v4(),
+                timestamp:Date.now(),
+                voteScore: 1,
+                deleted: false,
+                commentCount: 0
+            };
+            this.props.addPost(post);
+            this.props.history.push('/');
+        }
+
+
     }
 
     handleChange=(e)=>{
@@ -41,6 +53,7 @@ class AddNewPost extends Component{
             <div>
                 <Card>
                     <CardTitle> Add New Post</CardTitle>
+                    {this.state.error&&(<div style={{color:"red"}}>{this.state.error}</div>)}
                     <CardBody>
                         <Form onSubmit={this.handleSubmit} method="POST">
                             <FormGroup>
