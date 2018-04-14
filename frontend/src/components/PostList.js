@@ -50,7 +50,8 @@ class PostList extends Component{
                             post={post}
                             editPost={this.props.editPost}
                             votePost={this.props.votePost}
-                            deletePost={this.props.deletePost}/>)
+                            deletePost={this.props.deletePost}
+                        />)
                 })}
             </div>);
     }

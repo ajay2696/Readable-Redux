@@ -6,25 +6,29 @@ import Comment from './Comment';
 import Post from './Post';
 import AddNewComment from './AddNewComment';
 import PropTypes from 'prop-types';
-
+import NoMatchFound from './NoMatchFound';
 class PostDetailView extends Component{
     componentWillMount(){
         let postID=this.props.match.params.uid;
         this.props.loadPost(postID);
         this.props.getComments(postID);
     }
+    deletePost=(postId)=>{
+        this.props.deletePost(postId);
+        this.props.history.push('/');
+    }
 
     render(){
         const post =this.props.post;
         if(typeof post==='undefined'){
-            return <div> </div>
+            return <div><NoMatchFound/></div>
         } else {
             return (
                 <div>
                     <Post post={this.props.post}
                         votePost={this.props.votePost}
                         editPost={this.props.editPost}
-                        deletePost={this.props.deletePost}
+                        deletePost={this.deletePost}
                     />
                     <div className="div-comments">
                         {this.props.comments.map((comment)=>{
@@ -75,6 +79,7 @@ PostDetailView.propTypes={
     deletePost:PropTypes.func.isRequired,
     post:PropTypes.object,
     comments:PropTypes.array,
-    match:PropTypes.object
+    match:PropTypes.object,
+    history:PropTypes.object
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PostDetailView);
